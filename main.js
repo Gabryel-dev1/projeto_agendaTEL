@@ -1,4 +1,7 @@
 const form = document.getElementById('form-contatos');
+const nomes = [];
+const telefone = [];
+
 let linhas = '';
 
 form.addEventListener('submit', function(e) {
@@ -6,22 +9,30 @@ form.addEventListener('submit', function(e) {
 
     adicionalinha();
     atualizatabela();
-
 });
 
 function adicionalinha() {
     const inputNome = document.getElementById('nome-contato');
     const inputNumero = document.getElementById('numero-tel');
 
-    let linha = '<tr>';
-    linha += `<td>${inputNome.value}</td>`;
-    linha += `<td>${inputNumero.value}</td>`;
-    linha += `</tr>`;
+    if (telefone.includes(inputNumero.value)) {
+        alert("O numero de telefone ja existe");
+    } else if (nomes.includes(inputNome.value)) {
+          alert(`O nome ${inputNome.value} já existe`);
+    } else {
+        nomes.push(inputNome.value);
+        telefone.push(inputNumero.value);
+    
+        let linha = '<tr>';
+        linha += `<td>${inputNome.value}</td>`;
+        linha += `<td>${inputNumero.value}</td>`;
+        linha += `</tr>`;
+    
+        linhas += linha;
 
-    linhas += linha;
-
-    inputNome.value = ''
-    inputNumero.value = ''
+        inputNome.value = ''
+        inputNumero.value = ''
+    }
 }
 
 function atualizatabela() {
